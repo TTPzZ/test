@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadMap : MonoBehaviour
 {
-    public AudioSource Bep;
+    //public AudioSource Bep;
     private void Start()
     {
     
@@ -18,9 +18,13 @@ public class LoadMap : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
-    public void LoadAudio()
+    public void LoadOption()
     {
-     
-        Bep.Play();
+        SceneManager.LoadScene("Option");
     }
+    //public void LoadAudio()
+    //{
+     
+    //    Bep.Play();
+    //}
 }

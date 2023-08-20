@@ -9,7 +9,7 @@ public class Static : MonoBehaviour
     public static float Tang = 10f;
     public static float Giam = 45f;
     public static float currentStamina;
-    public static float speedSwimming=20f;
+    public static float speedSwimming=39f;
 
     
 }

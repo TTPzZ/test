@@ -4,14 +4,16 @@ using UnityEngine;
 using Spine.Unity;
 public class JumpPlayer : MonoBehaviour
 {
+    //cua animation
     public SkeletonAnimation skeleton;
     public AnimationReferenceAsset ready,jump;
     public string owlState;
+    //kiem tra su kien hold
     bool move=false;
+    //am thanh
     public AudioSource bonx;
-    public GameObject hidePlayer,showSwimming;
-    public Rigidbody2D bttHole;
-
+    //an hien gameObject
+    public GameObject hidePlayer,showSwimming,showbttLeft,showbttRight;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +21,7 @@ public class JumpPlayer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
 
-    }
     public void setJump(AnimationReferenceAsset animation,bool loop,float timeScale)
     {
         //if (animation.name.Equals(owlState))
@@ -36,7 +34,8 @@ public class JumpPlayer : MonoBehaviour
     {
         hidePlayer.SetActive(false);
         showSwimming.SetActive(true);
-        bttHole.gravityScale = 11;
+        showbttLeft.SetActive(true);
+        showbttRight.SetActive(true);
     }
 
     public void setOwl(string state)
@@ -45,7 +44,6 @@ public class JumpPlayer : MonoBehaviour
         {
             setJump(jump, false, 1f);
         }
-
     }
     public void Move(bool _move)
     {
@@ -54,9 +52,7 @@ public class JumpPlayer : MonoBehaviour
         {
             setJump(jump, false, 1f);
             Invoke("setHideShow", 3.3f);
-            //Debug.Log("hehe");
         }
-        
     }
 
 }

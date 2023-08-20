@@ -25,9 +25,10 @@ public class Left : MonoBehaviour
     public SkeletonAnimation HandL;
     //các animation c?a ch? th?
     public AnimationReferenceAsset surf, swimming;
-
     //??i khái là bi?n t?m cho giá tr? mu?n tham chi?u ??n
     public Timer timer;
+    //an hien song
+    public GameObject wavehs;
     public void Start()
     {
         //tìm b?ng tag và nh?n vào bi?n t?m t?o ? trên
@@ -63,16 +64,16 @@ public class Left : MonoBehaviour
                 //UpdateUITime();
             } 
             //g?i hàm c?p nh?t stamina
-            UpdateStamina(); 
+            UpdateStamina();
+            wavehs.SetActive(true);
         }
         //khi không có s? ki?n nh?n n?a thì h?i l?i th? l?c
         else
         {
             Static.currentStamina += Static.Tang * Time.deltaTime;
             Static.currentStamina = Mathf.Clamp(Static.currentStamina, 0f, Static.maxStamina);
-   
-        }    
-        
+            wavehs.SetActive(false);
+        }         
     }
     //ham cap nhat thanh thoi gian cua bang dead
     void UpdateUITime()

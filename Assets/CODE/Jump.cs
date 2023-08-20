@@ -29,23 +29,42 @@ public class Jump : MonoBehaviour
         //import bien time tu tep co tag Jump voi class Timer
         timer = GameObject.FindGameObjectWithTag("Jump").GetComponent<Timer>();
     }
-    private void FixedUpdate()
+
+    private bool isHolding = false,ischeck=false;
+
+    private void Update()
     {
-        //khi giu
         if (move==true)
         {
+            isHolding = true;
+            StartCoroutine(HoldTimer());
+        }
+
+        if (move==false)
+        {
+            isHolding = false;
+        }
+    }
+
+    private IEnumerator HoldTimer()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (isHolding)
+        {
             //cho trong luc cua owl ve 0 de bat dau boi
-            owl.gravityScale = 0; 
+            owl.gravityScale = 0;
             //cho owl tien ve phia truoc
-            owl.AddForce(transform.up * speed * Time.fixedDeltaTime*10, ForceMode2D.Force);
+            owl.velocity = Vector2.up * 5;
             //giam stamina khi nhan
-            Static.currentStamina -= 55f * Time.deltaTime;
+            Static.currentStamina -= 45f * Time.deltaTime;
             //ham dung de tranh gay ra loi
             Static.currentStamina = Mathf.Clamp(Static.currentStamina, 0f, Static.maxStamina);
             //khi stamina cua nhan vat tro ve 0
             if (Static.currentStamina <= 0f)
             {
                 // hien cac man hinh khi owl dead
+
                 timer.stoptimer();
                 soundDead.Play();
                 GameOverrr.SetActive(true);
@@ -54,9 +73,14 @@ public class Jump : MonoBehaviour
             }
             //cap nhat lai thanh stamina
             UpdateUI();
+            ischeck = true;
         }
-        //khi khong giu
-        else
+    }
+
+    private void FixedUpdate()
+    {
+        //khi ko giu
+        if (move==false)
         {
             //lam cho nhan vat khong di chuyen nua
             owl.velocity = Vector2.up * 0;
@@ -65,6 +89,7 @@ public class Jump : MonoBehaviour
             Static.currentStamina = Mathf.Clamp(Static.currentStamina, 0f, Static.maxStamina);
             UpdateUI();
         }
+    
     }
     //ham cap nhat thanh thoi gian cua bang dead
     void UpdateUITime()
@@ -91,7 +116,10 @@ public class Jump : MonoBehaviour
         if (move == false)
         {
             //lam cho chu hole bi roi xuong
-            hold.gravityScale = 10f;
+            if(ischeck == true)
+            {
+                hold.gravityScale = 10f;
+            }
         }
     }
 }

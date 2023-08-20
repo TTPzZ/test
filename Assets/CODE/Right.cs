@@ -18,6 +18,8 @@ public class Right : MonoBehaviour
     public AnimationReferenceAsset surf, swimming;
 
     public Timer timer;
+
+    public GameObject wavehs;
     public void Start()
     {
         timer = GameObject.FindGameObjectWithTag("Jump").GetComponent<Timer>();
@@ -37,15 +39,16 @@ public class Right : MonoBehaviour
                 dead.Play();
                 GameOverrr.SetActive(true);
                 timer.stoptimer();
-
             }
             UpdateUI();
+            wavehs.SetActive(true);
         }
         else
         {
             Static.currentStamina += Static.Tang * Time.deltaTime;
             Static.currentStamina = Mathf.Clamp(Static.currentStamina, 0f, Static.maxStamina);
-            UpdateUI();
+            //UpdateUI();
+            wavehs.SetActive(false);
         }
     }
 
